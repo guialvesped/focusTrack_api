@@ -1,9 +1,31 @@
-'use strict';
+"use strict";
 
-/**
- * target router
- */
-
-const { createCoreRouter } = require('@strapi/strapi').factories;
-
-module.exports = createCoreRouter('api::target.target');
+module.exports = {
+  routes: [
+    {
+      method: "GET",
+      path: "/targets",
+      handler: "target.find",
+    },
+    {
+      method: "GET",
+      path: "/targets/:id",
+      handler: "target.findOne",
+    },
+    {
+      method: "POST",
+      path: "/targets",
+      handler: "target.create",
+    },
+    {
+      method: "PUT",
+      path: "/targets/:id",
+      handler: "target.update",
+    },
+    {
+      method: "DELETE",
+      path: "/targets/:id",
+      handler: "target.delete",
+    },
+  ],
+};
