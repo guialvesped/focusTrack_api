@@ -4,13 +4,11 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::target.target", ({ strapi }) => ({
   async create(ctx) {
-    const user = ctx.state.user;
     const { data } = ctx.request.body;
 
     const target = await strapi.entityService.create("api::target.target", {
       data: {
         ...data,
-        user: data.user,
       },
     });
 

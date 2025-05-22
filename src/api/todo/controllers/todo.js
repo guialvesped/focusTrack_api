@@ -4,15 +4,11 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::todo.todo", ({ strapi }) => ({
   async create(ctx) {
-    // const user = ctx.state.user;
-    // if (!user) return ctx.unauthorized("Você precisa estar logado.");
-
     const { data } = ctx.request.body;
 
     const todo = await strapi.entityService.create("api::todo.todo", {
       data: {
         ...data,
-        // user: user.id,
       },
     });
 
