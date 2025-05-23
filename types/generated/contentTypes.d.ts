@@ -405,7 +405,6 @@ export interface ApiTargetTarget extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
-    todos: Schema.Attribute.Relation<'oneToMany', 'api::todo.todo'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -431,7 +430,7 @@ export interface ApiTodoTodo extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     dificulty: Schema.Attribute.Enumeration<
       ['very hard', 'hard', 'medium', 'easy', 'very easy']
     >;
@@ -443,13 +442,13 @@ export interface ApiTodoTodo extends Struct.CollectionTypeSchema {
       ['very high', 'high', 'medium', 'low']
     >;
     publishedAt: Schema.Attribute.DateTime;
-    target: Schema.Attribute.Relation<'manyToOne', 'api::target.target'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
-    todo_status: Schema.Attribute.Enumeration<['todo', 'doing', 'done']>;
+    todo_status: Schema.Attribute.Enumeration<['todo', 'doing', 'done']> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

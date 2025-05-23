@@ -22,11 +22,12 @@
         "todo",
         "doing",
         "done"
-      ]
+      ],
+      "required": true
     },
     "description": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "due_date": {
       "type": "date"
@@ -49,12 +50,6 @@
         "medium",
         "low"
       ]
-    },
-    "target": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::target.target",
-      "inversedBy": "todos"
     },
     "user": {
       "type": "relation",

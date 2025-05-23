@@ -5,14 +5,29 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController("api::todo.todo", ({ strapi }) => ({
   async create(ctx) {
     const { data } = ctx.request.body;
+    const { user } = ctx.state;
 
     const todo = await strapi.entityService.create("api::todo.todo", {
       data: {
         ...data,
+        user: user.id,
       },
     });
 
     return this.transformResponse(todo);
+  },
+
+  async find(ctx) {
+    const { user } = ctx.state;
+
+    const todos = await strapi.entityService.findMany("api::todo.todo", {
+      filters: {
+        user: user.id,
+      },
+      populate: ["user"],
+    });
+
+    return this.transformResponse(todos);
   },
 
   async findOne(ctx) {
@@ -31,12 +46,13 @@ module.exports = createCoreController("api::todo.todo", ({ strapi }) => ({
 
   async update(ctx) {
     const { id } = ctx.params;
+    const { user } = ctx.state;
 
-    const existing = await strapi.entityService.findOne("api::todo.todo", id, {
+    const todo = await strapi.entityService.findOne("api::todo.todo", id, {
       populate: ["user"],
     });
 
-    if (!existing) {
+    if (!todo) {
       return ctx.notFound("Não encontrado");
     }
 
