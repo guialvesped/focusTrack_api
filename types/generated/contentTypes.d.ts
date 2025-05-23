@@ -373,48 +373,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTargetTarget extends Struct.CollectionTypeSchema {
-  collectionName: 'targets';
-  info: {
-    description: '';
-    displayName: 'target';
-    pluralName: 'targets';
-    singularName: 'target';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    due_date: Schema.Attribute.Date;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::target.target'
-    > &
-      Schema.Attribute.Private;
-    priority: Schema.Attribute.Enumeration<
-      ['very high', 'high', 'medium', 'low']
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    target_status: Schema.Attribute.Enumeration<['todo', 'doing', 'done']>;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 100;
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
 export interface ApiTodoTodo extends Struct.CollectionTypeSchema {
   collectionName: 'todos';
   info: {
@@ -946,7 +904,6 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    targets: Schema.Attribute.Relation<'oneToMany', 'api::target.target'>;
     todos: Schema.Attribute.Relation<'oneToMany', 'api::todo.todo'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -970,7 +927,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::target.target': ApiTargetTarget;
       'api::todo.todo': ApiTodoTodo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

@@ -65,12 +65,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "targets": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::target.target",
-      "mappedBy": "user"
-    },
     "todos": {
       "type": "relation",
       "relation": "oneToMany",
